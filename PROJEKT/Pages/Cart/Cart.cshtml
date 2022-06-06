@@ -1,0 +1,54 @@
+﻿@page
+@model PROJEKT.Pages.CartModel
+@{
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body >
+    <h2>Koszyk</h2>
+    <table class="table table-striped"  style="font-size: 16px">
+         <thead>
+            <tr>
+                <th scope="col">Ilosc</th>
+                <th scope="col">@Html.DisplayNameFor(model =>Model.productC[0].id)</th>
+                <th scope="col">@Html.DisplayNameFor(model =>Model.productC[0].name)</th>
+                <th scope="col">@Html.DisplayNameFor(model =>Model.productC[0].price)</th>
+                <th scope="col">Akcja</th>
+            </tr>
+         </thead>
+         <tbody>
+         @foreach (var p in Model.productC)
+         {
+         <tr>
+            <th>@Model.ilosci[p.id]</th>
+            <td>@Html.DisplayFor(m => p.id)</td>
+            <td>@Html.DisplayFor(m => p.name)</td>
+            <td>@Html.DisplayFor(m => p.price)</td>
+            <td>
+            <a asp-page="CartDel" asp-route-id=@p.id>Usuń</a>
+            </td>
+         </tr>
+         }
+         <th></th>
+         <th></th>
+         <td>SUMA:</td>
+         <td>@Model.suma zl</td>
+         </tbody>
+    </table>
+    <div>
+        @if (Request.Cookies["UserLoginCookie"] != null)
+        {
+            <a asp-page="/Order/Create"  class="btn button button4">Zamów</a>
+        }
+        <form method="post" class="form-horizontal">
+            <button type="submit"  class="btn button button4">Wyczyść Koszyk</button>
+            <a asp-page="/Products/Index"  class="btn button button4">Powrót do listy</a>
+        </form>
+    </div>
+</body>
+</html>

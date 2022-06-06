@@ -1,0 +1,74 @@
+﻿@page
+@model PROJEKT.Pages.Order.IndexModel
+@{
+   
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h1 align="center">Lista zamowień</h1>
+    <hr />
+    <br />
+    <table class="table" style="font-size: 16px" align="center">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Zamowienia[0].id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.users[0].userName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Zamowienia[0].produkty)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.Zamowienia) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @{
+                        Model.ile_produktu = new int[Model.products.Count + 1];
+                    }
+                    @foreach(var u in Model.users)
+                    {
+                        if(u.id==item.UserID)
+                        {
+                           @Html.DisplayFor(modelItem => u.userName)    
+                        }
+                     }   
+                </td>
+                <td>
+                    
+                    @for(int i=0;i<item.produkty.Length;i++)
+                    {
+                            Model.ile_produktu[item.produkty[i] - 48]++;
+                    }
+                    @foreach(var p in Model.products)
+                    {
+                        if(Model.ile_produktu[p.id]!=0)
+                        {
+                                @Model.ile_produktu[p.id]<a>x</a> 
+                                @Html.DisplayFor(modelItem => p.name)<br /> 
+                        }
+                    }
+                    
+                </td>
+                <td>
+                        <a class="btn button button4" asp-page="Edit" asp-route-id=@item.id>Edytuj</a><a> | </a>
+                        <a class="btn button button4" asp-page="Delete" asp-route-id=@item.id>Usuń</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</body>
+</html>

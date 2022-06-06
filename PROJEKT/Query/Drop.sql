@@ -1,0 +1,5 @@
+﻿drop procedure sp_productAdd
+drop procedure sp_productDelete
+drop procedure sp_productDetails
+drop procedure sp_productEdit
+drop procedure sp_productList

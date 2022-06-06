@@ -1,0 +1,57 @@
+﻿@page
+@model PROJEKT.Pages.Users.IndexModel
+@{
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h1 align="center">Lista użytkowników</h1>
+    <hr />
+    <br />
+    <table class="table" style="font-size: 16px" align="center">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Users[0].userName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Users[0].email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.types[0].name)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.Users) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.userName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @foreach(var t in Model.types)
+                    {
+                        if(t.id==item.typeID)
+                        {
+                            @Html.DisplayFor(modelItem => t.name)
+                        }
+                    }
+                </td>
+                <td>
+                        <a class="btn button button4" asp-page="Edit" asp-route-id=@item.id>Edytuj</a><a> | </a>
+                        <a class="btn button button4" asp-page="Delete" asp-route-id=@item.id>Usuń</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</body>
+</html>

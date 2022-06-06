@@ -1,0 +1,74 @@
+﻿@page
+@model PROJEKT.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Lista produktow - ";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h1 align="center">Lista produktów</h1>
+    <hr />
+    <div class="row col-sm-12" align="center">
+        @if(User.IsInRole("Administrator") || User.IsInRole("Kierownik") || User.IsInRole("Pracownik"))
+        {
+            <a  align="center" asp-page="Create" class="btn button button4">Dodaj</a>
+        }
+    </div>
+    <br />
+    <table class="table" style="font-size: 16px" align="center">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product[0].name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product[0].price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product[0].opis)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product[0].Categories)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.Product) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price) zl
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.opis)
+                </td>
+                <td>
+                    @foreach(var c in item.Categories)
+                    {
+                        @Html.DisplayFor(modelItem=>c.Category.shortName)
+                        <br/>
+                    }
+                </td>
+                <td>
+                    
+                     @if(User.IsInRole("Administrator") || User.IsInRole("Kierownik"))
+                     {
+                        <a class="btn button button4" asp-page="Edit" asp-route-id=@item.id>Edytuj</a><a> | </a>
+                        <a class="btn button button4" asp-page="Delete" asp-route-id=@item.id>Usuń</a><a> | </a>
+                     }
+                    <a class="btn button button4" asp-page="./Details" asp-route-id="@item.id">Szczegóły</a> |
+                    <a class="btn button button4" asp-page="/Cart/AddCart" asp-route-id=@item.id>Dodaj do Koszyka</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</body>
+</html>

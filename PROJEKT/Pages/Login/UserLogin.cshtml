@@ -1,0 +1,32 @@
+﻿@page
+@model PROJEKT.Pages.Login.UserLoginModel
+@{
+
+}
+<div>
+ @Model.Message
+</div>
+<h2 align="center">Zaloguj się</h2>
+<hr />
+<div class="container" style="font-size: 28px" align="center">
+	 <form class="form-horizontal" method="post">
+	 <div class="form-group">
+		<label asp-for="user.userName" class="control-label"></label>
+		<div class="col-sm-6">
+			<input asp-for="user.userName" class="form-control">
+		</div>
+	 </div>
+	 <div class="form-group">
+		<label asp-for="user.password" class="control-label col-sm2"></label>
+		<div class="col-sm-6">
+			<input asp-for="user.password" class="form-control">
+		</div>
+	 </div>
+	<div class="form-group">
+		<div class="form-group">
+            <input type="submit" value="Zatwierdź" class="btn button button4" />
+            <a asp-page="/Products/Index"class="btn button button4">Powrót do listy</a>
+        </div>
+	 </div>
+	</form>
+</div>

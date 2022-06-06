@@ -1,0 +1,62 @@
+﻿@page
+@model PROJEKT.Pages.Categories.IndexModel
+@{
+    ViewData["Title"] = "Lista kategorii - ";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h1 align="center">Lista Kategorii</h1>
+    <hr />
+    <div class="row col-sm-12">
+        @if(User.IsInRole("Administrator") || User.IsInRole("Kierownik") || User.IsInRole("Pracownik"))
+        {
+            <a align="center" asp-page="Create" class="btn button button4">Dodaj</a>
+        }
+    </div>
+    <br />
+    <table class="table" style="font-size: 16px" align="center">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category[0].shortName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category[0].longName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category[0].opis)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.Category) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.shortName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.longName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.opis)
+                </td>
+                <td>
+                    @if(User.IsInRole("Administrator") || User.IsInRole("Kierownik"))
+                     {
+                        <a class="btn button button4" asp-page="Edit" asp-route-id=@item.id>Edytuj</a><a> | </a>
+                        <a class="btn button button4" asp-page="Delete" asp-route-id=@item.id>Usuń</a><a> | </a>
+                     }
+                    <a class="btn button button4" asp-page="./Details" asp-route-id="@item.id">Szczegóły</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</body>
+</html>
