@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using PROJEKT.DAL;
 using PROJEKT.Models;
+using System;
 
-namespace PROJEKT.Pages
+namespace PROJEKT.Pages.Orders
 {
     public class CreateModel : PageModel
     {
@@ -25,17 +22,17 @@ namespace PROJEKT.Pages
         public IActionResult OnGet()
         {
             var users = DataBase.ReadUser(_configuration);
-            int id = 1;
+            int uid = 1;
             foreach (var user in users)
             {
-                if(user.userName ==User.Identity.Name)
+                if (user.userName == User.Identity.Name)
                 {
-                    id = user.id;
+                    uid = user.id;
                 }
             }
             if (Request.Cookies["Cart"] != null)
             {
-                newZamowienie = new Zamowienie(id, Request.Cookies["Cart"]);
+                newZamowienie = new Zamowienie(uid, Request.Cookies["Cart"]);
                 ZamowienieDB.Add(newZamowienie);
             }
             var cookieOptions = new CookieOptions

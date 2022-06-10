@@ -1,6 +1,3 @@
-using System;
-using System.Xml;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PROJEKT.DAL;
@@ -8,7 +5,6 @@ using PROJEKT.Models;
 
 namespace PROJEKT.Pages.Orders
 {
-    //[Authorize(Roles = "Administrator,Kierownik,Pracownik")]
     public class EditModel : PageModel
     {
         [BindProperty]
@@ -22,10 +18,12 @@ namespace PROJEKT.Pages.Orders
         {
             Zamowienie = ZamowienieDB.Get(id);
         }
-        public IActionResult OnPost()
+        public IActionResult OnPost(int id)
         {
+            var Z = ZamowienieDB.Get(id);
+            Zamowienie.UserID = Z.UserID;
             if (!ModelState.IsValid)
-            {
+            { 
                 return Page();
             }
             ZamowienieDB.Update(Zamowienie);

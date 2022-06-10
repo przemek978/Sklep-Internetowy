@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PROJEKT.DAL;
 
-namespace PROJEKT.Pages
+namespace PROJEKT.Pages.Orders
 {
     [Authorize(Roles = "Administrator,Kierownik,Pracownik")]
     public class DeleteModel : PageModel
@@ -20,7 +20,7 @@ namespace PROJEKT.Pages
         public IActionResult OnGet(int id)
         {
             ZamowienieDB.Delete(id);
-            return RedirectToPage("/Cart/Cart");
+            return RedirectToPage("/Orders/Index");
         }
     }
 }

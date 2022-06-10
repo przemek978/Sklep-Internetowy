@@ -33,6 +33,7 @@ namespace PROJEKT.DAL
         {
             var z = new Zamowienie();
             z.id = int.Parse(node.Attributes["id"].Value);
+            z.UserID= int.Parse(node["UserID"].InnerText);
             z.produkty = node["produkty"].InnerText;
             return z;
         }
@@ -56,6 +57,7 @@ namespace PROJEKT.DAL
             XmlNode node = null;
             XmlNodeList list = db.SelectNodes("/store/order[@id=" + z.id.ToString() + "]");
             node = list[0];
+            node["UserID"].InnerText = z.UserID.ToString();
             node["produkty"].InnerText = z.produkty.ToString();
             SaveXmlBase();
         }
@@ -75,8 +77,11 @@ namespace PROJEKT.DAL
                 el.SetAttribute("id", 1.ToString());
             else 
                 el.SetAttribute("id", (int.Parse(list[list.Count - 1].Attributes["id"].Value) + 1).ToString());
+            XmlNode UserID = db.CreateElement("UserID");
             XmlNode produkty = db.CreateElement("produkty");
             produkty.InnerText = z.produkty;
+            UserID.InnerText = z.UserID.ToString();
+            el.AppendChild(UserID);
             el.AppendChild(produkty);
             db.DocumentElement.AppendChild(el);
             SaveXmlBase();
