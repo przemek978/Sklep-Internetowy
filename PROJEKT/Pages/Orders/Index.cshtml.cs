@@ -7,7 +7,7 @@ using PROJEKT.Models;
 using System.Collections.Generic;
 using System.Xml;
 
-namespace PROJEKT.Pages.Order
+namespace PROJEKT.Pages.Orders
 {
     public class IndexModel : PageModel
     {

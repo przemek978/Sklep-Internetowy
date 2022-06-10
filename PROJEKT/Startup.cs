@@ -43,8 +43,8 @@ namespace PROJEKT
                 options.Conventions.AuthorizePage("/Products/Edit");
                 options.Conventions.AuthorizePage("/Products/Delete");
             });
-            //services.Add(new ServiceDescriptor(typeof(IZamowienieDB), new ZamowienieXmlDB(Configuration)));
-            services.Add(new ServiceDescriptor(typeof(IZamowienieDB), new ZamowienieSqlDB(Configuration)));
+            services.Add(new ServiceDescriptor(typeof(IZamowienieDB), new ZamowienieXmlDB(Configuration)));
+            //services.Add(new ServiceDescriptor(typeof(IZamowienieDB), new ZamowienieSqlDB(Configuration)));
 
             services.AddDbContext<CompanyPROJEKTContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("CompanyPROJEKTContext")));

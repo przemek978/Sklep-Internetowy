@@ -67,8 +67,47 @@ a {
 .container{
     color: white;
 }
-.table{
-    color: white!important;
+
+.table {
+}
+
+.table {
+    /*max-width: 768px;*/
+    font-family: sans-serif;
+    background: #021830;
+    padding: 40px 20px;
+    color: #fff;
+    text-align: center;
+}
+
+.table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.table caption {
+    font-size: .8em;
+    text-decoration: underline;
+    /*padding-bottom: 20px;*/
+}
+
+.table tbody tr {
+    background: #022b1d;
+    border-bottom: solid 1px #000;
+    color: #fff;
+}
+
+.table tbody tr:hover {
+    background: #022b1d;
+}
+
+.table td {
+    padding: 8px 4px;
+}
+
+.table tr td:nth-of-type(1) {
+    background: #021830;
 }
 /*
 .button {

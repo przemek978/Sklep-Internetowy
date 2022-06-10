@@ -1,7 +1,7 @@
 ﻿@page
 @model PROJEKT.Pages.CartModel
 @{
-
+    ViewData["Title"] = "Twój Koszyk";
 }
 <!DOCTYPE html>
 <html>
@@ -11,7 +11,7 @@
 </head>
 <body >
     <h2>Koszyk</h2>
-    <table class="table table-striped"  style="font-size: 16px">
+    <table class="table"  style="font-size: 16px" align="center">
          <thead>
             <tr>
                 <th scope="col">Ilosc</th>
@@ -25,19 +25,20 @@
          @foreach (var p in Model.productC)
          {
          <tr>
-            <th>@Model.ilosci[p.id]</th>
+            <td>@Model.ilosci[p.id]</td>
             <td>@Html.DisplayFor(m => p.id)</td>
             <td>@Html.DisplayFor(m => p.name)</td>
             <td>@Html.DisplayFor(m => p.price)</td>
             <td>
-            <a asp-page="CartDel" asp-route-id=@p.id>Usuń</a>
+            <a asp-page="CartDel" asp-route-id=@p.id class="btn button button4">Usuń</a>
             </td>
          </tr>
          }
          <th></th>
          <th></th>
-         <td>SUMA:</td>
+         <th>SUMA:</th>
          <td>@Model.suma zl</td>
+         <th></th>
          </tbody>
     </table>
     <div>

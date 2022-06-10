@@ -1,12 +1,14 @@
 using System;
 using System.Xml;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PROJEKT.DAL;
 using PROJEKT.Models;
 
-namespace PROJEKT.Pages
+namespace PROJEKT.Pages.Orders
 {
+    //[Authorize(Roles = "Administrator,Kierownik,Pracownik")]
     public class EditModel : PageModel
     {
         [BindProperty]
@@ -27,7 +29,7 @@ namespace PROJEKT.Pages
                 return Page();
             }
             ZamowienieDB.Update(Zamowienie);
-            return RedirectToPage("Cart/Cart");
+            return RedirectToPage("/Orders/Index");
         }
     }
 }

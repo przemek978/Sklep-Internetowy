@@ -1,7 +1,7 @@
 ﻿@page
 @model PROJEKT.Pages.Categories.IndexModel
 @{
-    ViewData["Title"] = "Lista kategorii - ";
+    ViewData["Title"] = "Kategorie";
 }
 <!DOCTYPE html>
 <html>
@@ -10,14 +10,8 @@
     <title></title>
 </head>
 <body>
-    <h1 align="center">Lista Kategorii</h1>
+    <h1 align="center">KATEGORIE</h1>
     <hr />
-    <div class="row col-sm-12">
-        @if(User.IsInRole("Administrator") || User.IsInRole("Kierownik") || User.IsInRole("Pracownik"))
-        {
-            <a align="center" asp-page="Create" class="btn button button4">Dodaj</a>
-        }
-    </div>
     <br />
     <table class="table" style="font-size: 16px" align="center">
         <thead>
@@ -58,5 +52,11 @@
     }
         </tbody>
     </table>
+    <div class="row col-sm-12">
+        @if(User.IsInRole("Administrator") || User.IsInRole("Kierownik") || User.IsInRole("Pracownik"))
+        {
+            <a align="center" asp-page="Create" class="btn button button4">Dodaj</a>
+        }
+    </div>
 </body>
 </html>

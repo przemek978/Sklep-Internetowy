@@ -1,7 +1,7 @@
 ﻿@page
-@model PROJEKT.Pages.Order.IndexModel
+@model PROJEKT.Pages.Orders.IndexModel
 @{
-   
+   ViewData["Title"] = "Zamówienia";
 }
 <!DOCTYPE html>
 <html>
@@ -10,7 +10,7 @@
     <title></title>
 </head>
 <body>
-    <h1 align="center">Lista zamowień</h1>
+    <h1 align="center">ZAMÓWIENIA</h1>
     <hr />
     <br />
     <table class="table" style="font-size: 16px" align="center">
@@ -63,8 +63,8 @@
                     
                 </td>
                 <td>
-                        <a class="btn button button4" asp-page="Edit" asp-route-id=@item.id>Edytuj</a><a> | </a>
-                        <a class="btn button button4" asp-page="Delete" asp-route-id=@item.id>Usuń</a>
+                    <a class="btn button button4" asp-page="/Edit" asp-route-id=@item.id>Edytuj</a><a> | </a>
+                    <a class="btn button button4" asp-page="/Delete" asp-route-id=@item.id>Usuń</a><a> | </a>
                 </td>
             </tr>
     }

@@ -17,7 +17,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]SKLEP</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/site.css" />
     <link rel="stylesheet" href="~/css/Style.css" />
@@ -45,7 +45,7 @@
                         @if (User.IsInRole("Administrator") || User.IsInRole("Kierownik") || User.IsInRole("Pracownik"))
                         {
                             <li class="nav-item">
-                                <a style="color: white!important" class="nav-link text-dark" asp-area="" asp-page="/Order/Index">Zamówienia</a>
+                                <a style="color: white!important" class="nav-link text-dark" asp-area="" asp-page="/Orders/Index">Zamówienia</a>
                             </li>
                         }
                         @if(User.IsInRole("Administrator"))
