@@ -22,6 +22,7 @@ namespace PROJEKT
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            DataBase.configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -29,6 +30,9 @@ namespace PROJEKT
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc().AddSessionStateTempDataProvider();
+            services.AddSession();
+
             services.AddAuthentication("CookieAuthentication")
             .AddCookie("CookieAuthentication", config =>
             {
@@ -43,8 +47,8 @@ namespace PROJEKT
                 options.Conventions.AuthorizePage("/Products/Edit");
                 options.Conventions.AuthorizePage("/Products/Delete");
             });
-            services.Add(new ServiceDescriptor(typeof(IZamowienieDB), new ZamowienieXmlDB(Configuration)));
-            //services.Add(new ServiceDescriptor(typeof(IZamowienieDB), new ZamowienieSqlDB(Configuration)));
+            //services.Add(new ServiceDescriptor(typeof(IZamowienieDB), new ZamowienieXmlDB(Configuration)));
+            services.Add(new ServiceDescriptor(typeof(IZamowienieDB), new ZamowienieSqlDB(Configuration)));
 
             services.AddDbContext<CompanyPROJEKTContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("CompanyPROJEKTContext")));
@@ -70,7 +74,7 @@ namespace PROJEKT
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
             app.UseCookiePolicy();
             app.UseAuthentication();

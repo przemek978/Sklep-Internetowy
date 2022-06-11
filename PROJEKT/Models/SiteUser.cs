@@ -14,22 +14,27 @@ namespace PROJEKT.Models
         public string userName { get; set; }
         [Display(Name = "Email")]
         [Required(ErrorMessage = "Pole jest obowiązkowe")]
+        [RegularExpression(@"^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$", ErrorMessage = "Wartosc musi byc emailem")]
         public string email { get; set; }
         [Display(Name = "Hasło")]
         [Required(ErrorMessage = "Pole jest obowiązkowe")]
         [DataType(DataType.Password)]
         public string password { get; set; }
         public int typeID { get; set; }
+        [Display(Name = "Status konta")]
+        public bool isActive { get; set; }
         public SiteUser()
         {
 
         }
-        public SiteUser(int id,string user,string email,int typeid)
+        public SiteUser(int id,string username,string email,string password,int typeid,bool a)
         {
             this.id = id;
-            userName = user;
+            userName = username;
             this.email = email;
-            typeID = typeid;      
+            this.password = password;
+            typeID = typeid;    
+            isActive = a;
         }
     }
 }

@@ -10,32 +10,32 @@
     <title></title>
 </head>
 <body>
-    <h2 align="center">Szczegóły Produktu</h2>
-    <div style="font-size: 28px">
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
+    <h2 align="center">SZCZEGÓŁY PRODUKTU</h2>
+    <div style="font-size: 28px" align="center">
+    <hr/>
+        <dl class="container">
+            <dt >
                 @Html.DisplayNameFor(model => model.Product.name)
             </dt>
-            <dd class="col-sm-10">
+            <dd>
                 @Html.DisplayFor(model => model.Product.name)
             </dd>
-            <dt class="col-sm-2">
+            <dt >
                 @Html.DisplayNameFor(model => model.Product.price)
             </dt>
-            <dd class="col-sm-10">
+            <dd>
                 @Html.DisplayFor(model => model.Product.price) zł
             </dd>
-            <dt class="col-sm-2">
+            <dt >
                 @Html.DisplayNameFor(model => model.Product.opis)
             </dt>
-            <dd class="col-sm-10">
+            <dd >
                 @Html.DisplayFor(model => model.Product.opis)
             </dd>
-            <dt class="col-sm-2">
+            <dt >
                 @Html.DisplayNameFor(model => model.Product.Categories)
             </dt>
-            <dd  class="col-sm-10">
+            <dd>
                     @foreach(var c in Model.Product.Categories)
                     {
                         @Html.DisplayFor(Model => c.Category.shortName)
@@ -43,14 +43,14 @@
                     }
             </dd>
         </dl>
-    </div>
-    <div class="form-group">
-        <a asp-page="/Cart/AddCart"  class="btn button button4">Dodaj do koszyka</a>
+        <a asp-page="/Cart/AddCart"  asp-route-id="@Model.Product.id" class="btn button button4">Dodaj do koszyka</a>
         @if(Request.Cookies["UserLoginCookie"]!=null)
         {
             <a asp-page="./Edit" asp-route-id="@Model.Product.id"  class="btn button button4">Edytuj</a>
         }
         <a asp-page="./Index"  class="btn button button4">Powrót do listy</a>
     </div>
+    
+
 </body>
 </html>

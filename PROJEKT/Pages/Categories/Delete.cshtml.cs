@@ -12,7 +12,7 @@ using PROJEKT.Models;
 namespace PROJEKT.Pages.Categories
 {
     [Authorize(Roles = "Administrator,Kierownik")]
-    public class DeleteModel : PageModel
+    public class DeleteModel : Session
     {
         private readonly PROJEKT.Data.CompanyPROJEKTContext _context;
 

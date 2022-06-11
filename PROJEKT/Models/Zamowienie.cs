@@ -24,9 +24,5 @@ namespace PROJEKT.Models
             UserID = userid;    
             produkty = Prod;
         }
-        public void AddProduct(Product p)
-        {
-            produkty += p.id.ToString();
-        }
     }
 }

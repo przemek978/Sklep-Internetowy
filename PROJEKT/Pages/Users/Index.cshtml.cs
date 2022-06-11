@@ -6,24 +6,24 @@ using System.Collections.Generic;
 
 namespace PROJEKT.Pages.Users
 {
-    public class IndexModel : PageModel
+    public class IndexModel : Session
     {
-        //////////////////////////////////////////////////////////////////////////////////////////
-        public IConfiguration _configuration { get; }
+        /*//////////////////////////////////////////////////////////////////////////////////////////
+        //public IConfiguration _configuration { get; }
         public IndexModel(IConfiguration configuration)
         {
-            _configuration = configuration;
-
+            //DataBase.configuration = configuration;
         }
-        //////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////*/
         public List<SiteUser> Users { get; set; }
         public List<TypeUser> types { get; set; }
         public Product product;
         public int LastID;
         public void OnGet()
         {
-            Users = DataBase.ReadUser(_configuration);
-            types= DataBase.ReadTypes(_configuration);
+            Users = DataBase.ReadUser();
+            types= DataBase.ReadTypes();
+            SetSession();
         }
 
     }

@@ -10,7 +10,7 @@ using PROJEKT.Models;
 
 namespace PROJEKT.Pages.Categories
 {
-    public class DetailsModel : PageModel
+    public class DetailsModel : Session
     {
         private readonly PROJEKT.Data.CompanyPROJEKTContext _context;
 

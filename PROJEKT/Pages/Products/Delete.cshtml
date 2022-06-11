@@ -2,7 +2,7 @@
 @model PROJEKT.Pages.Products.DeleteModel
 
 @{
-    ViewData["Title"] = "Usuwam Produktu";
+    ViewData["Title"] = "Usuwanie Produktu";
 }
 <!DOCTYPE html>
 <html>
@@ -11,32 +11,31 @@
     <title></title>
 </head>
 <body>
-    <h2 align="center">Usuwanie Produktu</h2>
+    <h2 align="center">USUWANIE PRODUKTU</h2>
     <h3 align="center">Czy napewno chcesz usunąć poniższy produkt?</h3>
     <div style="font-size: 28px">
         <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
+        <dl class="container" align="center">
+            <dt>
                 @Html.DisplayNameFor(model => model.Product.name)
             </dt>
-            <dd class="col-sm-10">
+            <dd>
                 @Html.DisplayFor(model => model.Product.name)
             </dd>
-            <dt class="col-sm-2">
+            <dt>
                 @Html.DisplayNameFor(model => model.Product.price)
             </dt>
-            <dd class="col-sm-10">
+            <dd>
                 @Html.DisplayFor(model => model.Product.price) zł
             </dd>
-            <dt class="col-sm-2">
+            <dt>
                 @Html.DisplayNameFor(model => model.Product.opis)
             </dt>
-            <dd class="col-sm-10">
+            <dd>
                 @Html.DisplayFor(model => model.Product.opis)
             </dd>
         </dl>
-    
-        <form method="post">
+        <form method="post" align="center">
             <input type="hidden" asp-for="Product.id" />
             <input type="submit" value="Tak, usuń" class="btn btn-danger button4" />
             <a asp-page="./Index" class="btn button button4">Powrót do listy</a>

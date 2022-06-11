@@ -12,9 +12,8 @@ using PROJEKT.Models;
 
 namespace PROJEKT.Pages.Login
 {
-    public class UserLoginModel : PageModel
+    public class UserLoginModel : Session
     {
-        private readonly IConfiguration _configuration;
         public string Message { get; set; }
         [BindProperty]
         public SiteUser user { get; set; }
@@ -22,15 +21,15 @@ namespace PROJEKT.Pages.Login
         public List<SiteUser> users { get; set; }
         public UserLoginModel(IConfiguration configuration)
         {
-            _configuration = configuration;
+            DataBase.configuration = configuration;
         }
         public void OnGet()
         {
-            types = DataBase.ReadTypes(_configuration);
+            types = DataBase.ReadTypes();
         }
         private bool ValidateUser(SiteUser user)
         {
-            string myCompanyDBcs = _configuration.GetConnectionString("myCompanyDB");
+            string myCompanyDBcs = DataBase.configuration.GetConnectionString("myCompanyDB");
             SqlConnection con = new SqlConnection(myCompanyDBcs);
             SqlCommand cmd = new SqlCommand("sp_userDetails", con);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -38,19 +37,30 @@ namespace PROJEKT.Pages.Login
             string nazwa, haslo;
             con.Open();
             SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
+            if (user.userName!=null && user.password!=null)
             {
-                nazwa = reader["userName"].ToString().Trim();
-                if (user.userName == nazwa)
+                while (reader.Read())
                 {
-                    haslo = reader["password"].ToString().Trim();
-                    if (passwordHasher.VerifyHashedPassword(null, haslo, user.password) == PasswordVerificationResult.Success)
+                    nazwa = reader["userName"].ToString().Trim();
+                    if (user.userName == nazwa)
                     {
-                        reader.Close();
-                        con.Close();
-                        return true;
+                        haslo = reader["password"].ToString().Trim();
+                        if (passwordHasher.VerifyHashedPassword(null, haslo, user.password) == PasswordVerificationResult.Success)
+                        {
+                            if ((bool)reader["active"] == true)
+                            {
+                                reader.Close();
+                                con.Close();
+                                return true;
+                            }
+                            else
+                            {
+                                Message = "Konto jest zablokowane";
+                            }
+                        }
+                        else Message = "B³edna nazwa u¿ytkownika lub has³o";
                     }
-                }
+                } 
             }
             reader.Close();
             con.Close();
@@ -60,20 +70,20 @@ namespace PROJEKT.Pages.Login
         {
             if (ValidateUser(user))
             {
-                string nametype="Klient";
+                string nametype = "Klient";
 
-                types = DataBase.ReadTypes(_configuration);
-                users = DataBase.ReadUser(_configuration);
-                foreach(var u in users)
+                types = DataBase.ReadTypes();
+                users = DataBase.ReadUser();
+                foreach (var u in users)
                 {
-                    if(user.userName==u.userName)
+                    if (user.userName == u.userName)
                     {
-                        user.typeID= u.typeID;  
+                        user.typeID = u.typeID;
                     }
                 }
                 foreach (var t in types)
                 {
-                    if(t.id==user.typeID)
+                    if (t.id == user.typeID)
                     {
                         nametype = t.name;
                     }
@@ -88,17 +98,9 @@ namespace PROJEKT.Pages.Login
                 if (returnUrl != null)
                     return Redirect(returnUrl);
                 else
-                    return RedirectToPage("/Products/Index");
+                    return RedirectToPage(GetSession());
             }
             return Page();
         }
-        /*private bool ValidateUser(SiteUser user)
-        {
-            if ((user.userName == "admin") && (user.password == "abc"))
-                return true;
-            else
-                return false;
-        }*/
-
     }
 }

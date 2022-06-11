@@ -8,10 +8,11 @@ using System.Xml;
 
 namespace PROJEKT.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel : Session
     {
         public void OnGet()
         {
+            SetSession();
             //return RedirectToPage("/Products/Index");
         }
 

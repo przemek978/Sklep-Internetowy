@@ -15,15 +15,14 @@ using PROJEKT.Models;
 namespace PROJEKT.Pages.Products
 {
     [Authorize(Roles="Administrator,Kierownik")]
-    public class EditModel : PageModel
+    public class EditModel : Session
     {
-        private readonly IConfiguration _configuration;
         private readonly PROJEKT.Data.CompanyPROJEKTContext _context;
 
         public EditModel(PROJEKT.Data.CompanyPROJEKTContext context, IConfiguration configuration)
         {
             _context = context;
-            _configuration = configuration;
+            DataBase.configuration = configuration;
         }
 
         [BindProperty]
@@ -35,7 +34,7 @@ namespace PROJEKT.Pages.Products
         int typeID { get; set; }
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            users = DataBase.ReadUser(_configuration);
+            users = DataBase.ReadUser();
             foreach(var u in users)
             {
                 if(u.userName== User.Identity.Name)

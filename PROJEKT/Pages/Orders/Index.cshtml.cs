@@ -9,7 +9,7 @@ using System.Xml;
 
 namespace PROJEKT.Pages.Orders
 {
-    public class IndexModel : PageModel
+    public class IndexModel : Session
     {
         public List<Zamowienie> Zamowienia;
         IZamowienieDB zamowienieDB;
@@ -20,15 +20,16 @@ namespace PROJEKT.Pages.Orders
         public int[] ile_produktu { get; set; }
         public IndexModel(IZamowienieDB _zamowienieDB, IConfiguration configuration)
         {
-            zamowienieDB= _zamowienieDB;    
-           _configuration = configuration;
+            zamowienieDB= _zamowienieDB;
+            //DataBase.configuration = configuration;
         }
         public void OnGet()
         {
             Zamowienia = zamowienieDB.List();
-            users = DataBase.ReadUser(_configuration);
-            products = DataBase.Read(_configuration);
+            users = DataBase.ReadUser();
+            products = DataBase.Read();
             ile_produktu = new int[products.Count + 1];
+            SetSession();
         }
         private Zamowienie XmlNode2Product(XmlNode node)
         {

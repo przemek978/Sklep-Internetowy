@@ -9,15 +9,12 @@ using System.Data.SqlClient;
 
 namespace PROJEKT.Pages
 {
-    public class CartDelModel : PageModel
+    public class CartDelModel : Session
     {
         //////////////////////////////////////////////////////////////////////////////////////////
-        public IConfiguration _configuration { get; }
-        private readonly ILogger<CartDelModel> _logger;
-        public CartDelModel(IConfiguration configuration, ILogger<CartDelModel> logger)
+        public CartDelModel(IConfiguration configuration)
         {
-            _configuration = configuration;
-            _logger = logger;
+            DataBase.configuration = configuration;
         }
         //////////////////////////////////////////////////////////////////////////////////////////
         [FromQuery(Name = "id")]
@@ -32,7 +29,7 @@ namespace PROJEKT.Pages
         {
             var cookieValue = Request.Cookies["Cart"];
             string newcook = "";
-            productList = DataBase.Read(_configuration);
+            productList = DataBase.Read();
             int maxid = 0;
             for (int i = 0; i < productList.Count; i++)
             {

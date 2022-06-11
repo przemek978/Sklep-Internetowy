@@ -17,12 +17,12 @@ namespace PROJEKT.Models
 
         [Display(Name = "Cena")]
         [Required(ErrorMessage = "Pole jest obowiązkowe")]
-        //[DataType(DataType.Currency, ErrorMessage ="Cena musi przyjmować wartość ceny")]
         [Range(0.01,double.MaxValue,ErrorMessage="Cena musi być większa od 0")]
         public decimal price { get; set; }
 
         [Display(Name = "Opis")]
         public string opis { get; set; }
+
         [Display(Name = "Kategorie")]
         public ICollection<ProductCategory> Categories { get; set; }
         public Product()

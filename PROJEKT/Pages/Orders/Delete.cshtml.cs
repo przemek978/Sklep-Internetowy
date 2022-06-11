@@ -6,11 +6,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PROJEKT.DAL;
+using PROJEKT.Models;
 
 namespace PROJEKT.Pages.Orders
 {
     [Authorize(Roles = "Administrator,Kierownik,Pracownik")]
-    public class DeleteModel : PageModel
+    public class DeleteModel : Session
     {
         IZamowienieDB ZamowienieDB;
         public DeleteModel(IZamowienieDB _ZamowienieDB)

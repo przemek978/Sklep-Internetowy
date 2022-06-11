@@ -4,13 +4,11 @@
 @{
    ViewData["Title"] = "Rejestracja";
 }
-<div style="color: red">
-    <a style="font-size: 16px">@Html.Raw(Model.Message)</a>
-</div>
 <h2 align="center">ZAREJESTRUJ SIĘ</h2>
 <hr />
 <div class="container" style="font-size: 28px" align="center">
     <form class="form-horizontal" method="post">
+        <a style="font-size: 16px" class="text-danger">@Html.Raw(Model.Message)</a>
         <div class="form-group">
             <label asp-for="user.userName" class="control-label"></label>
             <div class="col-sm-6">
@@ -42,7 +40,7 @@
         <div class="form-group">
             <div class="form-group">
                 <input type="submit" value="Zatwierdź" class="btn button button4" />
-                <a asp-page="./Products/Index"class="btn button button4">Powrót do listy</a>
+                <a asp-page="/Products/Index"class="btn button button4">Powrót do listy</a>
             </div>
         </div>
         @if (User.IsInRole("Administrator"))

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PROJEKT.DAL;
@@ -5,7 +6,8 @@ using PROJEKT.Models;
 
 namespace PROJEKT.Pages.Orders
 {
-    public class EditModel : PageModel
+    [Authorize(Roles = "Administrator,Kierownik,Pracownik")]
+    public class EditModel : Session
     {
         [BindProperty]
         public Zamowienie Zamowienie { get; set; }

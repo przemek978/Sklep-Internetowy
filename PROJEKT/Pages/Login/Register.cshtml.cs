@@ -15,9 +15,8 @@ using PROJEKT.Models;
 
 namespace PROJEKT.Pages.Login
 {
-    public class RegisterModel : PageModel
+    public class RegisterModel : Session
     {
-        private readonly IConfiguration _configuration;
         public string Message { get; set; }
         [BindProperty]
         public SiteUser user { get; set; }
@@ -28,32 +27,32 @@ namespace PROJEKT.Pages.Login
         StringBuilder htmlStr = new StringBuilder("");
         public RegisterModel(IConfiguration configuration)
         {
-            _configuration = configuration;
+            DataBase.configuration = configuration;
         }
         public void OnGet()
         {
-            types = DataBase.ReadTypes(_configuration);
+            types = DataBase.ReadTypes();
         }
         public IActionResult OnPost(string password)
         {
-            types = DataBase.ReadTypes(_configuration);
+            types = DataBase.ReadTypes();
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            var users = DataBase.ReadUser(_configuration);
+            var users = DataBase.ReadUser();
             foreach(var u in users) 
             if(u.userName==user.userName)
             {
-                    htmlStr.Append("!!! Nazwa użytkownika juz istnieje");
+                    htmlStr.Append("Nazwa użytkownika juz istnieje");
                     if (password != user.password)
-                        htmlStr.Append("<br/>!!! Podane hasła muszą być takie same");
+                        htmlStr.Append("<br/>Podane hasła muszą być takie same");
                     Message = htmlStr.ToString(); 
                     return Page();
             }
             if (password == user.password)
             {
-                string myCompanyDBcs = _configuration.GetConnectionString("myCompanyDB");
+                string myCompanyDBcs = DataBase.configuration.GetConnectionString("myCompanyDB");
                 SqlConnection con = new SqlConnection(myCompanyDBcs);
                 SqlCommand cmd = new SqlCommand("sp_userAdd", con);
                 var passwordHasher = new PasswordHasher<string>();
@@ -65,9 +64,11 @@ namespace PROJEKT.Pages.Login
                 email_SqlParam.Value = user.email;
                 cmd.Parameters.Add(email_SqlParam);
                 SqlParameter password_SqlParam = new SqlParameter("@password", SqlDbType.Char, 64);
-                //string pas = passwordHasher.HashPassword(null, user.password);
                 password_SqlParam.Value = passwordHasher.HashPassword(null, user.password);
                 cmd.Parameters.Add(password_SqlParam);
+                SqlParameter active_SqlParam = new SqlParameter("@active", SqlDbType.Bit);
+                active_SqlParam.Value = true;
+                cmd.Parameters.Add(active_SqlParam);
                 SqlParameter type_SqlParam = new SqlParameter("@typeID", SqlDbType.Int, 64);
                 if(user.typeID!=0)
                     type_SqlParam.Value = user.typeID;
@@ -81,7 +82,7 @@ namespace PROJEKT.Pages.Login
             }
             else
             {
-                Message = "!!! Podane hasła muszą być takie same";
+                Message = "Podane hasła muszą być takie same";
                 return Page();
             }
         }

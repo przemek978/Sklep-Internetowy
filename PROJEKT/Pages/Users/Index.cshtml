@@ -25,6 +25,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.types[0].name)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Users[0].isActive)
+                </th>
                 <th></th>
             </tr>
         </thead>
@@ -47,7 +50,26 @@
                     }
                 </td>
                 <td>
-                        <a class="btn button button4" asp-page="Edit" asp-route-id=@item.id>Edytuj</a><a> | </a>
+                    @if(item.isActive==true)
+                    {
+                      <a>Aktywny</a>
+                    }
+                    else
+                    {
+                      <a>Nieaktywny</a>
+                    }
+                </td>
+                <td>
+                        @if(item.isActive==true)
+                        {
+                            <a class="btn button button4" asp-page="Edit" asp-route-id=@item.id>Edytuj</a><a> | </a>
+                            <a class="btn button button4" asp-page="ChangePass" asp-route-id=@item.id>Zmien Haslo</a>
+                            <a class="btn button button4" asp-page="Ban" asp-route-id=@item.id>Banuj</a>
+                        }
+                        else
+                        {
+                          <a class="btn button button4" asp-page="Ban" asp-route-id=@item.id>Odbanuj</a>
+                        }
                         <a class="btn button button4" asp-page="Delete" asp-route-id=@item.id>Usuń</a>
                 </td>
             </tr>

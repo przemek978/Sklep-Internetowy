@@ -12,9 +12,12 @@
 <body>
     <h1 align="center">KATEGORIE</h1>
     <hr />
-    <br />
     <table class="table" style="font-size: 16px" align="center">
         <thead>
+            @if(User.IsInRole("Administrator") || User.IsInRole("Kierownik") || User.IsInRole("Pracownik"))
+            {
+                <a asp-page="Create" class="btn button button1" style="width: 100%">Dodaj</a>
+            }
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Category[0].shortName)
@@ -37,26 +40,20 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.longName)
                 </td>
-                <td>
+                <td style="max-width: 200px">
                     @Html.DisplayFor(modelItem => item.opis)
                 </td>
                 <td>
                     @if(User.IsInRole("Administrator") || User.IsInRole("Kierownik"))
                      {
-                        <a class="btn button button4" asp-page="Edit" asp-route-id=@item.id>Edytuj</a><a> | </a>
-                        <a class="btn button button4" asp-page="Delete" asp-route-id=@item.id>Usuń</a><a> | </a>
+                        <a class="btn button button2" asp-page="Edit" asp-route-id=@item.id>Edytuj</a>
+                        <a class="btn button button2" asp-page="Delete" asp-route-id=@item.id>Usuń</a>
                      }
-                    <a class="btn button button4" asp-page="./Details" asp-route-id="@item.id">Szczegóły</a>
+                    <a class="btn button button2" asp-page="./Details" asp-route-id="@item.id">Szczegóły</a>
                 </td>
             </tr>
     }
         </tbody>
     </table>
-    <div class="row col-sm-12">
-        @if(User.IsInRole("Administrator") || User.IsInRole("Kierownik") || User.IsInRole("Pracownik"))
-        {
-            <a align="center" asp-page="Create" class="btn button button4">Dodaj</a>
-        }
-    </div>
 </body>
 </html>

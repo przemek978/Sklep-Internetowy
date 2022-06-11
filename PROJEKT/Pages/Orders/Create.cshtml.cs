@@ -8,20 +8,18 @@ using System;
 
 namespace PROJEKT.Pages.Orders
 {
-    public class CreateModel : PageModel
+    public class CreateModel : Session
     {
         [BindProperty]
         public Zamowienie newZamowienie { get; set; }
-        private readonly IConfiguration _configuration;
         IZamowienieDB ZamowienieDB;
-        public CreateModel(IZamowienieDB _ZamowienieDB, IConfiguration configuration)
+        public CreateModel(IZamowienieDB _ZamowienieDB)
         {
             ZamowienieDB = _ZamowienieDB;
-            _configuration = configuration;
         }
         public IActionResult OnGet()
         {
-            var users = DataBase.ReadUser(_configuration);
+            var users = DataBase.ReadUser();
             int uid = 1;
             foreach (var user in users)
             {

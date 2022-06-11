@@ -10,7 +10,7 @@ using PROJEKT.Models;
 
 namespace PROJEKT.Pages
 {
-    public class DetailsModel : PageModel
+    public class DetailsModel : Session
     {
         public Zamowienie Zamowienie { get; set; }
         IZamowienieDB ZamowienieDB;

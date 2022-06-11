@@ -11,7 +11,7 @@ using PROJEKT.Models;
 
 namespace PROJEKT.Pages.Products
 {
-    public class DetailsModel : PageModel
+    public class DetailsModel : Session
     {
         private readonly PROJEKT.Data.CompanyPROJEKTContext _context;
 
@@ -23,11 +23,6 @@ namespace PROJEKT.Pages.Products
         [BindProperty]
         public Product Product { get; set; }
         public List<Category> Categories { get; set; }
-        /*public async Task<IActionResult> OnGet()
-        {
-            Categories = await _context.Category.ToListAsync();
-            return Page();
-        }*/
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)

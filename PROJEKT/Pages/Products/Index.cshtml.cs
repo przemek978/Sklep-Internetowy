@@ -10,7 +10,7 @@ using PROJEKT.Models;
 
 namespace PROJEKT.Pages.Products
 {
-    public class IndexModel : PageModel
+    public class IndexModel : Session
     {
         private readonly PROJEKT.Data.CompanyPROJEKTContext _context;
 
@@ -26,6 +26,7 @@ namespace PROJEKT.Pages.Products
             // Product = await _context.Product.ToListAsync();
            Product = await _context.Product.Include(pk => pk.Categories)
                  .ThenInclude(c => c.Category).ToListAsync();
+           SetSession();
         }
     }
 }

@@ -2,7 +2,7 @@
 @model PROJEKT.Pages.Categories.DeleteModel
 
 @{
-    ViewData["Title"] = "Usuwam Kategorie";
+    ViewData["Title"] = "Usuwanie Kategorii";
 }
 <!DOCTYPE html>
 <html>
@@ -12,27 +12,27 @@
 
 </head>
 <body>
-    <h2>Usuwanie Kategorii</h2>
-    <h3>Czy napewno chcesz usunąć poniższą kategorię?</h3>
-    <div style="font-size: 28px">
+    <h2 align="center">USUWANIE KATEGORII</h2>
+    <h3 align="center">Czy napewno chcesz usunąć poniższą kategorię?</h3>
+    <div style="font-size: 28px" align="center">
         <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
+        <dl class="container">
+            <dt>
                 @Html.DisplayNameFor(model => model.Category.shortName)
             </dt>
-            <dd class="col-sm-10">
+            <dd>
                 @Html.DisplayFor(model => model.Category.shortName)
             </dd>
-            <dt class="col-sm-2">
+            <dt>
                 @Html.DisplayNameFor(model => model.Category.longName)
             </dt>
-            <dd class="col-sm-10">
+            <dd>
                 @Html.DisplayFor(model => model.Category.longName)
             </dd>
-            <dt class="col-sm-2">
+            <dt>
                 @Html.DisplayNameFor(model => model.Category.opis)
             </dt>
-            <dd class="col-sm-10">
+            <dd>
                 @Html.DisplayFor(model => model.Category.opis)
             </dd>
         </dl>

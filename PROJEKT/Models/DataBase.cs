@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using PROJEKT.Models;
@@ -11,14 +12,15 @@ namespace PROJEKT.Models
 {
     public static class DataBase
     {
-        public static List<Product> Read(IConfiguration configuration)
+        public static IConfiguration configuration;
+        static string myCompanyDB;
+
+        public static List<Product> Read()
         {
-            int LastID;
-            ///ODCZYT BAZY/////////////////////////////////////////////////////////////
             var productList = new List<Product>();
             Product product;
-            string myCompanyDB_connection_string = configuration.GetConnectionString("myCompanyDB");
-            SqlConnection con = new SqlConnection(myCompanyDB_connection_string);
+            myCompanyDB = configuration.GetConnectionString("myCompanyDB");
+            SqlConnection con = new SqlConnection(myCompanyDB);
             SqlCommand cmd = new SqlCommand("sp_productList", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
@@ -31,16 +33,13 @@ namespace PROJEKT.Models
             reader.Close();
             con.Close();
             return productList;
-            //////////////////////////////////////////////////////////////////////////////
         }
-        public static List<TypeUser> ReadTypes(IConfiguration configuration)
+        public static List<TypeUser> ReadTypes()
         {
-            int LastID;
-            ///ODCZYT BAZY/////////////////////////////////////////////////////////////
             var types = new List<TypeUser>();
             TypeUser type;
-            string myCompanyDBcs = configuration.GetConnectionString("myCompanyDB");
-            SqlConnection con = new SqlConnection(myCompanyDBcs);
+            myCompanyDB = configuration.GetConnectionString("myCompanyDB");
+            SqlConnection con = new SqlConnection(myCompanyDB);
             string sql = "SELECT * FROM TypeUser";
             SqlCommand cmd = new SqlCommand(sql, con);
             con.Open();
@@ -49,55 +48,55 @@ namespace PROJEKT.Models
             {
                 type = new TypeUser(Int32.Parse(reader["Id"].ToString()), reader.GetString(1));
                 types.Add(type);
-                LastID = Int32.Parse(reader["Id"].ToString());
             }
             reader.Close();
             con.Close();
             return types;
             //////////////////////////////////////////////////////////////////////////////
         }
-        /*public static List<Zamowienie> ReadOrder(IConfiguration configuration)
+        public static List<SiteUser> ReadUser()
         {
-            int LastID;
-            ///ODCZYT BAZY/////////////////////////////////////////////////////////////
-            var ZamowienieList = new List<Zamowienie>();
-            Zamowienie order;
-            string myCompanyDBcs = configuration.GetConnectionString("myCompanyDB");
-            SqlConnection con = new SqlConnection(myCompanyDBcs);
-            string sql = "SELECT * FROM [Order]";
-            SqlCommand cmd = new SqlCommand(sql, con);
-            con.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                order = new Zamowienie(Int32.Parse(reader["Id"].ToString()), reader.GetString(1));
-                ZamowienieList.Add(order);
-            }
-            reader.Close();
-            con.Close();
-            return ZamowienieList;
-            //////////////////////////////////////////////////////////////////////////////
-        }*/
-        public static List<SiteUser> ReadUser(IConfiguration configuration)
-        {
-            ///ODCZYT BAZY/////////////////////////////////////////////////////////////
             var users = new List<SiteUser>();
             SiteUser user;
-            string myCompanyDBcs = configuration.GetConnectionString("myCompanyDB");
-            SqlConnection con = new SqlConnection(myCompanyDBcs);
+            string myCompanyDB = configuration.GetConnectionString("myCompanyDB");
+            SqlConnection con = new SqlConnection(myCompanyDB);
             string sql = "SELECT * FROM Users";
             SqlCommand cmd = new SqlCommand(sql, con);
             con.Open();
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-               user= new SiteUser(Int32.Parse(reader["ID"].ToString()), reader.GetString(1).TrimEnd(' '), reader.GetString(2).TrimEnd(' ') ,Int32.Parse(reader["typeID"].ToString()));
+               user= new SiteUser(Int32.Parse(reader["ID"].ToString()), reader.GetString(1).TrimEnd(' '), reader.GetString(2).TrimEnd(' '),reader.GetString(3), Int32.Parse(reader["typeID"].ToString()), (bool)(reader["active"]));
                users.Add(user);
             }
             reader.Close();
             con.Close();
             return users;
-            //////////////////////////////////////////////////////////////////////////////
+        }
+        public static SiteUser GetUser(int id)
+        {
+            var users = ReadUser();
+            foreach (var u in users)
+            {
+                if(u.id == id)
+                {
+                    return u;
+                }
+            }
+            return new SiteUser();
+        }
+        public static SiteUser GetUser(string name)
+        {
+            var users = ReadUser();
+            foreach (var u in users)
+            {
+                if (name == u.userName)
+                {
+                    return u;
+                }
+            }
+            return new SiteUser();
         }
     }
 }
+

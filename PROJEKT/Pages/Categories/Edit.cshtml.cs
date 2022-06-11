@@ -13,7 +13,7 @@ using PROJEKT.Models;
 namespace PROJEKT.Pages.Categories
 {
     [Authorize(Roles = "Administrator,Kierownik")]
-    public class EditModel : PageModel
+    public class EditModel : Session
     {
         private readonly PROJEKT.Data.CompanyPROJEKTContext _context;
 
