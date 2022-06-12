@@ -62,6 +62,7 @@ namespace PROJEKT.Pages.Products
         {
             if (!ModelState.IsValid)
             {
+                Categories = await _context.Category.ToListAsync();
                 return Page();
             }
             foreach (var pc in _context.ProductCategory.ToList())

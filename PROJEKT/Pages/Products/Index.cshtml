@@ -43,14 +43,17 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.price) zl
                 </td>
-                <td>
+                <td style="max-width: 200px">
                     @Html.DisplayFor(modelItem => item.opis)
                 </td>
                 <td>
-                    @foreach(var c in item.Categories)
+                    @if(item.Categories!=null)
                     {
-                        @Html.DisplayFor(modelItem=>c.Category.shortName)
-                        <br/>
+                        @foreach(var c in item.Categories)
+                        {
+                            @Html.DisplayFor(modelItem=>c.Category.shortName)
+                            <br/>
+                        }
                     }
                 </td>
                 <td>

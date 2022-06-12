@@ -12,19 +12,26 @@ using System.Data.SqlClient;
 
 namespace PROJEKT.Pages.Login
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize]
     public class ChangePassModel : Session
     {
         public string Message { get; set; }
         [BindProperty]
         public SiteUser user { get; set; }
+        public SiteUser user1 { get; set; }
         public List<TypeUser> types { get; set; }
         [DisplayName("Powtórz has³o")]
         [DataType(DataType.Password)]
         public string password { get; set; }
-        public void OnGet(int id)
+        public IActionResult OnGet(int id)
         {
             user = DataBase.GetUser(id);
+            user1 = DataBase.GetUser(User.Identity.Name);
+            if (user.id!=user1.id && user1.typeID!=1)
+            {
+                return RedirectToPage("/Account/AccessDenied");
+            }
+            return Page();
         }
         public IActionResult OnPost(int id, string password)
         {
@@ -36,6 +43,7 @@ namespace PROJEKT.Pages.Login
             }
             if (user.password==password)
             {
+                user.isActive = true;
                 string myCompanyDBcs = DataBase.configuration.GetConnectionString("myCompanyDB");
                 SqlConnection con = new SqlConnection(myCompanyDBcs);
                 SqlCommand cmd = new SqlCommand("sp_userChangePass", con);
@@ -50,13 +58,18 @@ namespace PROJEKT.Pages.Login
                 con.Open();
                 cmd.ExecuteNonQuery();
                 con.Close();
-                return RedirectToPage("/Users/Index"); 
+                return RedirectToPage(GetSession());
+                /*if(user1.typeID != 1)
+                    return RedirectToPage("/Users/Index"); 
+                else
+                    return RedirectToPage("/Users/Profile"); */
             }
             else
             {
                 Message = "Podane has³a musz¹ byæ takie same";
                 return Page();
             }
+
         }
     }
 }

@@ -13,12 +13,12 @@ namespace PROJEKT.Pages.Orders
     [Authorize(Roles = "Administrator,Kierownik,Pracownik")]
     public class IndexModel : Session
     {
-        IZamowienieDB zamowienieDB;
         public List<Zamowienie> Zamowienia;
         SiteUser user { get; set; }
         public List<Product> products { get; set; }
         public List<SiteUser> users { get; set; }
         public int[] ile_produktu { get; set; }
+        IZamowienieDB zamowienieDB;
         public IndexModel(IZamowienieDB _zamowienieDB)
         {
             zamowienieDB= _zamowienieDB;

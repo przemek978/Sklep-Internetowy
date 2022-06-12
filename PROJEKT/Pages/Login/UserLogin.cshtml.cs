@@ -9,6 +9,8 @@ using System.Data.SqlClient;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using PROJEKT.Models;
+using System;
+using Microsoft.AspNetCore.Http;
 
 namespace PROJEKT.Pages.Login
 {
@@ -19,7 +21,7 @@ namespace PROJEKT.Pages.Login
         public SiteUser user { get; set; }
         public List<TypeUser> types { get; set; }
         public List<SiteUser> users { get; set; }
-        public void OnGet()
+        public void OnGet(int id)
         {
             types = DataBase.ReadTypes();
         }
@@ -56,6 +58,7 @@ namespace PROJEKT.Pages.Login
                         }
                         else Message = "B³edna nazwa u¿ytkownika lub has³o";
                     }
+                    else Message = "B³edna nazwa u¿ytkownika lub has³o";
                 } 
             }
             reader.Close();
@@ -90,12 +93,16 @@ namespace PROJEKT.Pages.Login
                     new Claim(ClaimTypes.Role,nametype)
                 };
                 var claimsIdentity = new ClaimsIdentity(claims, "CookieAuthentication");
+                var cookieOptions = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddDays(1)
+                };
                 await HttpContext.SignInAsync("CookieAuthentication", new ClaimsPrincipal(claimsIdentity));
                 if (returnUrl != null)
                     return Redirect(returnUrl);
                 else if(GetSession()!="/Index")
                     return RedirectToPage(GetSession());
-                else return RedirectToPage("/Users/Profile");
+                else return RedirectToPage("/Index");
             }
             return Page();
         }

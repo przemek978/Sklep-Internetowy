@@ -34,7 +34,7 @@
                 </div>
                  <div class="form-group">
                     <label class="control-label">Kategorie:</label>
-                    <select multiple class="form-control" asp-for="listID">
+                    <select multiple class="form-control" style="height: 250px"asp-for="listID">
                         @if(Model.Categories!=null)
                         {
                             @foreach (var item in Model.Categories)

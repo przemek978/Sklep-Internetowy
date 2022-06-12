@@ -32,26 +32,33 @@
         <div class="col-sm-6">
             <input asp-for="user.password" value="user.password" class="form-control" hidden>
         </div>
-        <div class="form-group">
-            <label class="control-label" >Typ Użytkownika:</label><br/>
-            <select asp-for="user.typeID">
-                @if (Model.types != null)
-                {
-                    @foreach (var item in Model.types)
+        @if (User.IsInRole("Administrator"))
+        {
+            <div class="form-group">
+                <label class="control-label" >Typ Użytkownika:</label><br/>
+                <select asp-for="user.typeID">
+                    @if (Model.types != null)
                     {
-                        <option value="@item.id">@item.name</option>
+                        @foreach (var item in Model.types)
+                        {
+                            <option value="@item.id">@item.name</option>
+                        }
                     }
-                }
-            </select>
-        </div>
-        <div>Aktywny
-            <input asp-for="user.isActive" type="checkbox"  value="true" />
-        </div>
+                </select>
+            </div>
+            <div>Aktywny
+                <input asp-for="user.isActive" type="checkbox"  value="true" />
+            </div>
+        }
+        else 
+        {
+            <input asp-for="user.typeID" hidden>
+        }
         </br>
         <div class="form-group">
             <div class="form-group">
                 <input type="submit" value="Zatwierdź" class="btn button button4" />
-                <a asp-page="/Users/Index"class="btn button button4">Powrót do listy</a>
+                <a asp-page="/Index"class="btn button button4">Powrót</a>
             </div>
         </div>
     </form>

@@ -14,8 +14,8 @@ namespace PROJEKT.Data
         {
         }
 
-        public DbSet<PROJEKT.Models.Category> Category { get; set; }
         public DbSet<PROJEKT.Models.Product> Product { get; set; }
+        public DbSet<PROJEKT.Models.Category> Category { get; set; }
         public DbSet<PROJEKT.Models.ProductCategory> ProductCategory { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

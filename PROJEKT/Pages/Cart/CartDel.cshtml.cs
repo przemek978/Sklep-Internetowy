@@ -11,12 +11,6 @@ namespace PROJEKT.Pages
 {
     public class CartDelModel : Session
     {
-        //////////////////////////////////////////////////////////////////////////////////////////
-        public CartDelModel(IConfiguration configuration)
-        {
-            DataBase.configuration = configuration;
-        }
-        //////////////////////////////////////////////////////////////////////////////////////////
         [FromQuery(Name = "id")]
         public int id { get; set; }
         public List<Product> productList;

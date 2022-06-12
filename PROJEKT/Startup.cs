@@ -24,7 +24,6 @@ namespace PROJEKT
             Configuration = configuration;
             DataBase.configuration = configuration;
         }
-
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -41,6 +40,7 @@ namespace PROJEKT
                 config.Cookie.Name = "UserLoginCookie";
                 config.LoginPath = "/Login/UserLogin";
                 config.Cookie.SameSite = SameSiteMode.Strict;
+                config.Cookie.MaxAge=TimeSpan.FromDays(1);
             });
             services.AddRazorPages(options => {
 

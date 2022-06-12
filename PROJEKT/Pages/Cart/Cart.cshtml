@@ -42,11 +42,11 @@
          
     </table>
     <div>
-        @if (Request.Cookies["UserLoginCookie"] != null)
-        {
-            <a asp-page="/Orders/Create"  class="btn button button4">Zamów</a>
-        }
         <form method="post" class="form-horizontal">
+            @if (Request.Cookies["UserLoginCookie"] != null)
+            {
+                <a asp-page="/Orders/Create"  class="btn button button4">Zamów</a>
+            }
             <button type="submit"  class="btn button button4">Wyczyść Koszyk</button>
             <a asp-page="/Products/Index"  class="btn button button4">Powrót do listy</a>
         </form>

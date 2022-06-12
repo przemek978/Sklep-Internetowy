@@ -12,11 +12,12 @@ namespace PROJEKT.Pages
     {
         public IActionResult OnGet()
         {
-            SetSession();
-            if (Request.Cookies["UserLoginCookie"] != null)
+            if (Request.Cookies["UserLoginCookie"] == null && GetSession()==null)
             {
-                return RedirectToPage("/Products/Index");
+                SetSession();
+                return RedirectToPage("/Welcome");
             }
+            SetSession();
             return Page();
         }
 
