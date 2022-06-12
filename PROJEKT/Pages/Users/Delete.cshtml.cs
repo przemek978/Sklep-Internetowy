@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,10 +11,7 @@ namespace PROJEKT.Pages.Users
 {
     public class DeleteModel : Session
     {
-        public DeleteModel(IConfiguration configuration)
-        {
-            DataBase.configuration = configuration;
-        }
+        [Authorize(Roles = "Administrator")]
         public IActionResult OnGet(int id)
         {
             string myCompanyDBcs = DataBase.configuration.GetConnectionString("myCompanyDB");

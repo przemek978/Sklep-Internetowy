@@ -37,17 +37,11 @@
             </div>
             <span asp-validation-for="password" class="text-danger"></span>
         </div>
-        <div class="form-group">
-            <div class="form-group">
-                <input type="submit" value="Zatwierdź" class="btn button button4" />
-                <a asp-page="/Products/Index"class="btn button button4">Powrót do listy</a>
-            </div>
-        </div>
         @if (User.IsInRole("Administrator"))
         {
             <div class="form-group">
-                <label class="control-label">Typ Użytkownika:</label>
-                <select class="form-control" asp-for="user.typeID">
+                <label class="control-label">Typ Użytkownika:</label><br/>
+                <select  asp-for="user.typeID">
                     @if (Model.types != null)
                     {
                         @foreach (var item in Model.types)
@@ -58,5 +52,11 @@
                 </select>
             </div>
         }
+        <div class="form-group">
+            <div class="form-group">
+                <input type="submit" value="Zatwierdź" class="btn button button4" />
+                <a asp-page=@Model.GetSession() class="btn button button4">Powrót</a>
+            </div>
+        </div>
     </form>
 </div>

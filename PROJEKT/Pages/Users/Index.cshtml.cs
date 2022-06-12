@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
@@ -6,15 +7,9 @@ using System.Collections.Generic;
 
 namespace PROJEKT.Pages.Users
 {
+    [Authorize(Roles = "Administrator")]
     public class IndexModel : Session
     {
-        /*//////////////////////////////////////////////////////////////////////////////////////////
-        //public IConfiguration _configuration { get; }
-        public IndexModel(IConfiguration configuration)
-        {
-            //DataBase.configuration = configuration;
-        }
-        //////////////////////////////////////////////////////////////////////////////////////////*/
         public List<SiteUser> Users { get; set; }
         public List<TypeUser> types { get; set; }
         public Product product;

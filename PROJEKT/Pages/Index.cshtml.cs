@@ -10,10 +10,14 @@ namespace PROJEKT.Pages
 {
     public class IndexModel : Session
     {
-        public void OnGet()
+        public IActionResult OnGet()
         {
             SetSession();
-            //return RedirectToPage("/Products/Index");
+            if (Request.Cookies["UserLoginCookie"] != null)
+            {
+                return RedirectToPage("/Products/Index");
+            }
+            return Page();
         }
 
     }

@@ -19,10 +19,6 @@ namespace PROJEKT.Pages.Login
         public SiteUser user { get; set; }
         public List<TypeUser> types { get; set; }
         public List<SiteUser> users { get; set; }
-        public UserLoginModel(IConfiguration configuration)
-        {
-            DataBase.configuration = configuration;
-        }
         public void OnGet()
         {
             types = DataBase.ReadTypes();
@@ -97,8 +93,9 @@ namespace PROJEKT.Pages.Login
                 await HttpContext.SignInAsync("CookieAuthentication", new ClaimsPrincipal(claimsIdentity));
                 if (returnUrl != null)
                     return Redirect(returnUrl);
-                else
+                else if(GetSession()!="/Index")
                     return RedirectToPage(GetSession());
+                else return RedirectToPage("/Users/Profile");
             }
             return Page();
         }

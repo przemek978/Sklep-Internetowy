@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
@@ -9,19 +10,18 @@ using System.Xml;
 
 namespace PROJEKT.Pages.Orders
 {
+    [Authorize(Roles = "Administrator,Kierownik,Pracownik")]
     public class IndexModel : Session
     {
-        public List<Zamowienie> Zamowienia;
         IZamowienieDB zamowienieDB;
-        public IConfiguration _configuration { get; }
+        public List<Zamowienie> Zamowienia;
         SiteUser user { get; set; }
         public List<Product> products { get; set; }
         public List<SiteUser> users { get; set; }
         public int[] ile_produktu { get; set; }
-        public IndexModel(IZamowienieDB _zamowienieDB, IConfiguration configuration)
+        public IndexModel(IZamowienieDB _zamowienieDB)
         {
             zamowienieDB= _zamowienieDB;
-            //DataBase.configuration = configuration;
         }
         public void OnGet()
         {

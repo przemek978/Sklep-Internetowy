@@ -12,7 +12,6 @@
 <body>
     <h1 align="center">UŻYTKOWNICY</h1>
     <hr />
-    <br />
     <table class="table" style="font-size: 16px" align="center">
         <thead>
             <tr>
@@ -40,7 +39,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.email)
                 </td>
-                <td>
+                <td style="max-width: 100 px">
                     @foreach(var t in Model.types)
                     {
                         if(t.id==item.typeID)
@@ -62,15 +61,15 @@
                 <td>
                         @if(item.isActive==true)
                         {
-                            <a class="btn button button4" asp-page="Edit" asp-route-id=@item.id>Edytuj</a><a> | </a>
-                            <a class="btn button button4" asp-page="ChangePass" asp-route-id=@item.id>Zmien Haslo</a>
-                            <a class="btn button button4" asp-page="Ban" asp-route-id=@item.id>Banuj</a>
+                            <a class="btn button button2" asp-page="Ban" asp-route-id=@item.id>Banuj</a>
                         }
                         else
                         {
-                          <a class="btn button button4" asp-page="Ban" asp-route-id=@item.id>Odbanuj</a>
+                          <a class="btn button button2" asp-page="Ban" asp-route-id=@item.id>Odbanuj</a>
                         }
-                        <a class="btn button button4" asp-page="Delete" asp-route-id=@item.id>Usuń</a>
+                        <a class="btn button button2" asp-page="Edit" asp-route-id=@item.id>Edytuj</a>
+                        <a class="btn button button2" asp-page="Delete" asp-route-id=@item.id>Usuń</a>
+                        <a class="btn button button2" asp-page="ChangePass" asp-route-id=@item.id>Zmien Haslo</a>
                 </td>
             </tr>
     }

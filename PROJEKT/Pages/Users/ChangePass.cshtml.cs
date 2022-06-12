@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,6 +12,7 @@ using System.Data.SqlClient;
 
 namespace PROJEKT.Pages.Login
 {
+    [Authorize(Roles = "Administrator")]
     public class ChangePassModel : Session
     {
         public string Message { get; set; }
@@ -20,10 +22,6 @@ namespace PROJEKT.Pages.Login
         [DisplayName("Powtórz has³o")]
         [DataType(DataType.Password)]
         public string password { get; set; }
-        public ChangePassModel(IConfiguration configuration)
-        {
-            DataBase.configuration=configuration;
-        }
         public void OnGet(int id)
         {
             user = DataBase.GetUser(id);

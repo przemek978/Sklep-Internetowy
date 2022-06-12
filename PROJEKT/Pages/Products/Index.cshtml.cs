@@ -23,7 +23,6 @@ namespace PROJEKT.Pages.Products
 
         public async Task OnGetAsync()
         {
-            // Product = await _context.Product.ToListAsync();
            Product = await _context.Product.Include(pk => pk.Categories)
                  .ThenInclude(c => c.Category).ToListAsync();
            SetSession();

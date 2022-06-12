@@ -9,6 +9,10 @@ namespace PROJEKT.Models
         {
             HttpContext.Session.SetString("PreviousLink", PageContext.ActionDescriptor.DisplayName);
         }
+        public void SetSession(string url)
+        {
+            HttpContext.Session.SetString("PreviousLink", url);
+        }
         public string GetSession()
         {
             return HttpContext.Session.GetString("PreviousLink");

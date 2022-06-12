@@ -12,7 +12,6 @@
 <body>
     <h1 align="center">ZAMÓWIENIA</h1>
     <hr />
-    <br />
     <table class="table" style="font-size: 16px" align="center">
         <thead>
             <tr>
@@ -63,8 +62,9 @@
                     
                 </td>
                 <td>
-                    <a class="btn button button4" asp-page="Edit" asp-route-id=@item.id>Edytuj</a><a> | </a>
-                    <a class="btn button button4" asp-page="Delete" asp-route-id=@item.id>Usuń</a><a> | </a>
+                    <a class="btn button button2" asp-page="Edit" asp-route-id=@item.id>Edytuj</a>
+                    <a class="btn button button2" asp-page="Delete" asp-route-id=@item.id>Usuń</a>
+                    <a class="btn button button2" asp-page="Details" asp-route-id=@item.id>Szczegóły</a>
                 </td>
             </tr>
     }

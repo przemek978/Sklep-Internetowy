@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +9,7 @@ using System.Data.SqlClient;
 
 namespace PROJEKT.Pages.Users
 {
+    [Authorize(Roles = "Administrator")]
     public class BanModel : Session
     {
         [BindProperty]

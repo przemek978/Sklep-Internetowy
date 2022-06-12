@@ -12,19 +12,12 @@ namespace PROJEKT.Pages
 {
     public class CartModel : Session
     {
-        //////////////////////////////////////////////////////////////////////////////////////////////////
-        public CartModel(IConfiguration configuration)
-        {
-            DataBase.configuration = configuration;
-        }
-        //////////////////////////////////////////////////////////////////////////////////////////////////
         public List<Product> productC;
         public List<Product> productList;
         public int[] ilosci;
         public decimal suma=0;
         public void OnGet()
         {
-
             var cookieValue = Request.Cookies["Cart"];
             productList = DataBase.Read();
             int maxid = 0,i=0;
@@ -53,15 +46,11 @@ namespace PROJEKT.Pages
                     }
                 }
             }
-           /* for (i = 1; i <= maxid+1; i++)
-            {
-                if (ilosci[i] != 0)
-                    productC.Add(productList[i - 1]);
-            }*/
             foreach (var p in productC)
             {
                 suma += p.price * ilosci[p.id];
             }
+            SetSession();
         }
         public IActionResult OnPost()
         {

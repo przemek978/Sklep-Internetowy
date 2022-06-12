@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +10,7 @@ using System.Linq;
 
 namespace PROJEKT.Pages.Users
 {
+    [Authorize(Roles = "Administrator")]
     public class EditModel : Session
     {
         public string Message { get; set; }
@@ -22,11 +24,13 @@ namespace PROJEKT.Pages.Users
         public void OnGet(int id)
         {
             user = DataBase.GetUser(id);
+            types = DataBase.ReadTypes();
         }
         public IActionResult OnPost(int id)
         {
             if (!ModelState.IsValid)
             {
+                types = DataBase.ReadTypes();
                 user = DataBase.GetUser(id);
                 return Page();
             }

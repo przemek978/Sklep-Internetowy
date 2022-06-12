@@ -12,7 +12,10 @@ namespace PROJEKT.Pages.Login
         public async Task<RedirectToPageResult> OnGet()
         {
             await HttpContext.SignOutAsync("CookieAuthentication");
-            //return Page();
+            if(GetSession()== "/Orders/Index" || GetSession()== "/Users/Index")
+            {
+                SetSession("/Products/Index");
+            }
             return this.RedirectToPage("./Out");
         }
     }
